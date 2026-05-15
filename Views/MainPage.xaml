@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lab3_Programming.Views.MainPage">
+
+    <Grid RowDefinitions="Auto, *">
+        <Button Grid.Row="0" Text="Add new student" Margin="10" Clicked="AddStudent_Clicked" />
+
+        <ListView Grid.Row="1" x:Name="listView" HasUnevenRows="True" ItemTapped="listView_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <VerticalStackLayout Padding="10">
+                            <StackLayout Orientation="Horizontal" Spacing="5">
+                                <Label Text="{Binding LastName}" FontSize="17" FontAttributes="Bold" Margin="0,0,5,0"/>
+                                <Label Text="{Binding Name}" FontSize="17" FontAttributes="Bold" />
+                                <Label Text="{Binding StudentId, StringFormat='ID: {0}'}" FontSize="12" TextColor="Black" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <Label Text="{Binding ThirdName}" FontSize="14" TextColor="DarkGray" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding AvarageGrade, StringFormat='Avarage grade: {0}'}"/>
+                                <Label Grid.Column="1" Text="{Binding FavoriteSubject}" HorizontalOptions="Center"/>
+                                <Label Grid.Column="2" Text="{Binding ParentsPhone}" FontAttributes="Bold" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lab3_Programming.Views.StudentDetailsPage"
+             Title="Create">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <Entry Text="{Binding Name, Mode=TwoWay}" Placeholder="Name"/>
+        <Entry Text="{Binding LastName, Mode=TwoWay}" Placeholder="Last Name"/>
+        <Entry Text="{Binding ThirdName, Mode=TwoWay}" Placeholder="Third name"/>
+        <Entry Text="{Binding GradeText, Mode=TwoWay}" Placeholder="Average Grade" Keyboard="Numeric"/>
+        <Entry Text="{Binding ParentsPhone, Mode=TwoWay}" Placeholder="Parents Phone" Keyboard="Telephone"/>
+        <Entry Text="{Binding FavoriteSubject, Mode=TwoWay}" Placeholder="Favorite Subject"/>
+        <Button Text="Save" Command="{Binding SaveCommand}" />
+    </VerticalStackLayout>
+
+</ContentPage>
