@@ -4,13 +4,20 @@
              x:Class="Lab3_Programming.Views.MainPage">
 
     <Grid RowDefinitions="Auto, *">
-        <Button Grid.Row="0" Text="Add new student" Margin="10" Clicked="AddStudent_Clicked" />
+        <Button Grid.Row="0" Text="Add new student" Margin="10" Command="{Binding AddCommand}" />
 
-        <ListView Grid.Row="1" x:Name="listView" HasUnevenRows="True" ItemTapped="listView_ItemTapped">
+        <ListView Grid.Row="1" x:Name="listView" ItemsSource="{Binding Students}" HasUnevenRows="True" SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <VerticalStackLayout Padding="10">
+                            
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding BindingContext.StudentTappedCommand, Source={x:Reference listView}}" 
+                                    CommandParameter="{Binding .}" />
+                            </VerticalStackLayout.GestureRecognizers>
+
                             <StackLayout Orientation="Horizontal" Spacing="5">
                                 <Label Text="{Binding LastName}" FontSize="17" FontAttributes="Bold" Margin="0,0,5,0"/>
                                 <Label Text="{Binding Name}" FontSize="17" FontAttributes="Bold" />
@@ -23,7 +30,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding AvarageGrade, StringFormat='Avarage grade: {0}'}"/>
+                                <Label Grid.Column="0" Text="{Binding AvarageGrade, StringFormat='Average grade: {0}'}"/>
                                 <Label Grid.Column="1" Text="{Binding FavoriteSubject}" HorizontalOptions="Center"/>
                                 <Label Grid.Column="2" Text="{Binding ParentsPhone}" FontAttributes="Bold" />
                             </Grid>

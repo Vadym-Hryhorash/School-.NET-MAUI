@@ -18,7 +18,7 @@ namespace Lab3_Programming.Models
 
         public string? ThirdName { get; set; }
 
-        public double? AvarageGrade { get; set; }
+        public double? AverageGrade { get; set; }
 
         public string? ParentsPhone { get; set; }
 

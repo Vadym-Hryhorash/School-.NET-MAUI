@@ -12,19 +12,35 @@ namespace Lab3_Programming.ViewModels
         public ObservableCollection<Student> Students { get; set; } = new();
 
         public ICommand AddCommand { get; }
-        public ICommand EditCommand { get; }
-        public ICommand DeleteCommand { get; }
+        public ICommand StudentTappedCommand { get; } 
         public MainViewModel(IStudentRepository repository)
         {
             _repository = repository;
             AddCommand = new Command(async () => await Shell.Current.Navigation.PushAsync(new StudentDetailsPage(_repository)));
-            EditCommand = new Command<Student>(async (s) => await Shell.Current.Navigation.PushAsync(new StudentDetailsPage(_repository, s)));
-            DeleteCommand = new Command<Student>(async (s) =>
-            {
-                await _repository.Delete(s);
-                await LoadStudents();
-            });
+            
+            StudentTappedCommand = new Command<Student>(async (student) => await HandleStudentTapped(student));
         }
+        private async Task HandleStudentTapped(Student student)
+        {
+            if (student == null) return;
+
+            var action = await Application.Current.MainPage.DisplayActionSheet("Action", "Cancel", null, "Edit", "Delete");
+
+            if (action == "Edit")
+            {
+                await Shell.Current.Navigation.PushAsync(new StudentDetailsPage(_repository, student));
+            }
+            else if (action == "Delete")
+            {
+                bool confirm = await Application.Current.MainPage.DisplayAlert("Confirmation", "Are you sure you want to delete this student?", "Yes", "No");
+                if (confirm)
+                {
+                    await _repository.Delete(student);
+                    await LoadStudents();
+                }
+            }
+        }
+
         public async Task LoadStudents()
         {
             var list = await _repository.GetStudents();
